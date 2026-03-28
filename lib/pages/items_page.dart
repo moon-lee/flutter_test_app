@@ -15,6 +15,7 @@ class _ItemsPageState extends State<ItemsPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   Item? editingItem;
+  ItemType selectedType = ItemType.mildSteel;
 
   @override
   void initState() {
@@ -48,9 +49,13 @@ class _ItemsPageState extends State<ItemsPage> {
       await _firebaseService.addItem(
         nameController.text,
         descriptionController.text.isEmpty ? null : descriptionController.text,
+        selectedType,
       );
       nameController.clear();
       descriptionController.clear();
+      setState(() {
+        selectedType = ItemType.mildSteel;
+      });
       await loadItems();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Item added successfully')),
@@ -72,11 +77,13 @@ class _ItemsPageState extends State<ItemsPage> {
         editingItem!.id,
         nameController.text,
         descriptionController.text.isEmpty ? null : descriptionController.text,
+        selectedType,
       );
       nameController.clear();
       descriptionController.clear();
       setState(() {
         editingItem = null;
+        selectedType = ItemType.mildSteel;
       });
       await loadItems();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -108,6 +115,7 @@ class _ItemsPageState extends State<ItemsPage> {
       editingItem = item;
       nameController.text = item.name;
       descriptionController.text = item.description ?? '';
+      selectedType = item.type;
     });
   }
 
@@ -116,6 +124,7 @@ class _ItemsPageState extends State<ItemsPage> {
       editingItem = null;
       nameController.clear();
       descriptionController.clear();
+      selectedType = ItemType.mildSteel;
     });
   }
 
@@ -169,6 +178,28 @@ class _ItemsPageState extends State<ItemsPage> {
                                 prefixIcon: Icon(Icons.description),
                               ),
                               maxLines: 3,
+                            ),
+                            const SizedBox(height: 12),
+                            DropdownButtonFormField<ItemType>(
+                              value: selectedType,
+                              decoration: const InputDecoration(
+                                labelText: 'Material Type',
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(Icons.category),
+                              ),
+                              items: ItemType.values.map((type) {
+                                return DropdownMenuItem(
+                                  value: type,
+                                  child: Text(type.displayName),
+                                );
+                              }).toList(),
+                              onChanged: (ItemType? newType) {
+                                if (newType != null) {
+                                  setState(() {
+                                    selectedType = newType;
+                                  });
+                                }
+                              },
                             ),
                             const SizedBox(height: 16),
                             Row(
@@ -229,6 +260,9 @@ class _ItemsPageState extends State<ItemsPage> {
                                     label: Text('Description', style: TextStyle(fontWeight: FontWeight.bold)),
                                   ),
                                   DataColumn(
+                                    label: Text('Type', style: TextStyle(fontWeight: FontWeight.bold)),
+                                  ),
+                                  DataColumn(
                                     label: Text('Actions', style: TextStyle(fontWeight: FontWeight.bold)),
                                   ),
                                 ],
@@ -237,6 +271,7 @@ class _ItemsPageState extends State<ItemsPage> {
                                     cells: [
                                       DataCell(Text(item.name, style: const TextStyle(fontWeight: FontWeight.w500))),
                                       DataCell(Text(item.description ?? '', maxLines: 2, overflow: TextOverflow.ellipsis)),
+                                      DataCell(Text(item.type.displayName, style: const TextStyle(fontWeight: FontWeight.w500))),
                                       DataCell(
                                         Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -304,6 +339,28 @@ class _ItemsPageState extends State<ItemsPage> {
                                 ),
                                 maxLines: 3,
                               ),
+                              const SizedBox(height: 12),
+                              DropdownButtonFormField<ItemType>(
+                                value: selectedType,
+                                decoration: const InputDecoration(
+                                  labelText: 'Material Type',
+                                  border: OutlineInputBorder(),
+                                  prefixIcon: Icon(Icons.category),
+                                ),
+                                items: ItemType.values.map((type) {
+                                  return DropdownMenuItem(
+                                    value: type,
+                                    child: Text(type.displayName),
+                                  );
+                                }).toList(),
+                                onChanged: (ItemType? newType) {
+                                  if (newType != null) {
+                                    setState(() {
+                                      selectedType = newType;
+                                    });
+                                  }
+                                },
+                              ),
                               const SizedBox(height: 16),
                               Row(
                                 children: [
@@ -363,6 +420,9 @@ class _ItemsPageState extends State<ItemsPage> {
                                     label: Text('Description', style: TextStyle(fontWeight: FontWeight.bold)),
                                   ),
                                   DataColumn(
+                                    label: Text('Type', style: TextStyle(fontWeight: FontWeight.bold)),
+                                  ),
+                                  DataColumn(
                                     label: Text('Actions', style: TextStyle(fontWeight: FontWeight.bold)),
                                   ),
                                 ],
@@ -371,6 +431,7 @@ class _ItemsPageState extends State<ItemsPage> {
                                     cells: [
                                       DataCell(Text(item.name, style: const TextStyle(fontWeight: FontWeight.w500))),
                                       DataCell(Text(item.description ?? '', maxLines: 2, overflow: TextOverflow.ellipsis)),
+                                      DataCell(Text(item.type.displayName, style: const TextStyle(fontWeight: FontWeight.w500))),
                                       DataCell(
                                         Row(
                                           mainAxisSize: MainAxisSize.min,
