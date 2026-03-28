@@ -57,13 +57,17 @@ class _ItemsPageState extends State<ItemsPage> {
         selectedType = ItemType.mildSteel;
       });
       await loadItems();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Item added successfully')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Item added successfully')),
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error adding item: $e')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error adding item: $e')),
+        );
+      }
     }
   }
 
@@ -86,13 +90,17 @@ class _ItemsPageState extends State<ItemsPage> {
         selectedType = ItemType.mildSteel;
       });
       await loadItems();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Item updated successfully')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Item updated successfully')),
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error updating item: $e')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error updating item: $e')),
+        );
+      }
     }
   }
 
@@ -100,13 +108,17 @@ class _ItemsPageState extends State<ItemsPage> {
     try {
       await _firebaseService.deleteItem(id);
       await loadItems();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Item deleted successfully')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Item deleted successfully')),
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error deleting item: $e')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error deleting item: $e')),
+        );
+      }
     }
   }
 
@@ -181,7 +193,7 @@ class _ItemsPageState extends State<ItemsPage> {
                             ),
                             const SizedBox(height: 12),
                             DropdownButtonFormField<ItemType>(
-                              value: selectedType,
+                             // value: selectedType,
                               decoration: const InputDecoration(
                                 labelText: 'Material Type',
                                 border: OutlineInputBorder(),
@@ -341,7 +353,7 @@ class _ItemsPageState extends State<ItemsPage> {
                               ),
                               const SizedBox(height: 12),
                               DropdownButtonFormField<ItemType>(
-                                value: selectedType,
+                               // value: selectedType,
                                 decoration: const InputDecoration(
                                   labelText: 'Material Type',
                                   border: OutlineInputBorder(),
