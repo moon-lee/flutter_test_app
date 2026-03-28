@@ -1,0 +1,1 @@
+{"hosting":{"public":"public","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]},"flutter":{"platforms":{"dart":{"lib/firebase_options.dart":{"projectId":"test-firestore-ce04b","configurations":{"web":"1:662610171696:web:dfac75d036a98d6b265af5"}}}}}}

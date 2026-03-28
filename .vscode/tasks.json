@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Flutter Web Release",
+            "type": "shell",
+            "command": "flutter build web --release && npx http-server build/web -p 8080",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "docker: Build and Run Release",
+            "type": "shell",
+            "command": "flutter build web --release && docker build -t my-flutter-app . && docker run -d -p 8085:80 --name flutter-container my-flutter-app",
+            "detail": "Builds Flutter, creates Docker image, and starts container."
+        }
+    ]
+}
