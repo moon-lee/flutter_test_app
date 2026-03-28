@@ -38,6 +38,7 @@ migrate_working_dir/
 /android/
 /macos/
 /windows/
+/lib/firebase_options.dart
 
 # Symbolication related
 app.*.symbols
