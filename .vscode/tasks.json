@@ -16,6 +16,12 @@
             "type": "shell",
             "command": "flutter build web --release && docker build -t my-flutter-app . && docker run -d -p 8085:80 --name flutter-container my-flutter-app",
             "detail": "Builds Flutter, creates Docker image, and starts container."
+        },
+        {
+            "label": "Git Source Control, Docker: Build and Run Release",
+            "type": "shell",
+            "command": "git add . && git commit -m 'automated backup' && git push && flutter build web --release && docker build -t my-flutter-app . && docker run -d -p 8085:80 --name flutter-container my-flutter-app",
+            "detail": "Git Source Control, Builds Flutter, creates Docker image, and starts container."
         }
     ]
 }
