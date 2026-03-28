@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum ItemType {
   mildSteel('Mild Steel'),
-  aluminumStainless('Al. Stainless'),
+  aluminum('Aluminum'),
   stainlessSteel('Stainless Steel');
 
   final String displayName;
