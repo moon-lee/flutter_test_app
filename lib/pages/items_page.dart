@@ -193,7 +193,7 @@ class _ItemsPageState extends State<ItemsPage> {
                             ),
                             const SizedBox(height: 12),
                             DropdownButtonFormField<ItemType>(
-                             // value: selectedType,
+                              initialValue: selectedType,
                               decoration: const InputDecoration(
                                 labelText: 'Material Type',
                                 border: OutlineInputBorder(),
@@ -353,7 +353,7 @@ class _ItemsPageState extends State<ItemsPage> {
                               ),
                               const SizedBox(height: 12),
                               DropdownButtonFormField<ItemType>(
-                               // value: selectedType,
+                                initialValue: selectedType,
                                 decoration: const InputDecoration(
                                   labelText: 'Material Type',
                                   border: OutlineInputBorder(),
